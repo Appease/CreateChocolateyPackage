@@ -19,8 +19,8 @@ function Invoke-CIStep(
     foreach($nuspecFilePath in $NuspecFilePaths)
     {        
         # invoke nuget pack
-        Push-Location $OutputDirectoryPath
-        chocolatey pack $nuspecFilePath
+        Push-Location (resolve-path $OutputDirectoryPath)
+        chocolatey pack (resolve-path $nuspecFilePath)
         Pop-Location
 
         # handle errors
