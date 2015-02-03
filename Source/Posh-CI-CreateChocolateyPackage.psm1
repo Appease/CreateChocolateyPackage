@@ -12,7 +12,7 @@ function EnsureChocolateyInstalled(){
 }
 
 function Invoke-CIStep(
-[string][Parameter(Mandatory=$true)]$NuspecFilePaths,
+[string[]][Parameter(Mandatory=$true)]$NuspecFilePaths,
 [string]$OutputDirectoryPath){
     EnsureChocolateyInstalled
     
