@@ -14,8 +14,8 @@ add an entry in your ci plans `Packages.config` file
 then just pass variables to Invoke-CIPlan according to the following signature 
 ```POWERSHELL
 function Invoke-CIStep(
-[string[]][Parameter(Mandatory=$true)]$NuspecFilePaths,
-[string]$OutputDirectoryPath){
+[string[]][Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true)]$NuspecFilePaths,
+[string][Parameter(ValueFromPipelineByPropertyName=$true)]$OutputDirectoryPath='.'){
   <# implementation snipped #>
 }
 ```
