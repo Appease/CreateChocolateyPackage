@@ -12,8 +12,8 @@ function EnsureChocolateyInstalled(){
 }
 
 function Invoke-CIStep(
-[string[]][Parameter(Mandatory=$true)]$NuspecFilePaths,
-[string]$OutputDirectoryPath){
+[string[]][Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true)]$NuspecFilePaths,
+[string][Parameter(ValueFromPipelineByPropertyName=$true)]$OutputDirectoryPath='.'){
     EnsureChocolateyInstalled
     
     foreach($nuspecFilePath in $NuspecFilePaths)
