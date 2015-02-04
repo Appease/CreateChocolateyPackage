@@ -6,7 +6,7 @@ A [Posh-CI](https://github.com/Posh-CI/Posh-CI) step that creates one or more [C
 add an entry in your ci plans `Packages.config` file
 ```XML
 <packages>
-  <package id="posh-ci-createnugetpackage" />
+  <package id="posh-ci-createchocolateypackage" />
   <!-- other dependencies snipped -->
 </packages>
 ```
