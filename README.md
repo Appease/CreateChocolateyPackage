@@ -1,25 +1,25 @@
-**What is it?**
+####What is it?
+
 A [Posh-CI](https://github.com/Posh-CI/Posh-CI) step that creates one or more [Chocolatey](https://chocolatey.org/) packages
 
-**How do I use it?**
+####How do I install it?
 
-add an entry in your ci plans `Packages.config` file
-```XML
-<packages>
-  <package id="posh-ci-createchocolateypackage" />
-  <!-- other dependencies snipped -->
-</packages>
+```PowerShell
+Add-CIStep -Name "YOUR-CISTEP-NAME" -ModulePackageId "Posh-CI-CreateChocolateyPackage"
 ```
 
-then just pass variables to Invoke-CIPlan according to the following signature 
-```POWERSHELL
-function Invoke-CIStep(
-[string[]][Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true)]$NuspecFilePaths,
-[string][Parameter(ValueFromPipelineByPropertyName=$true)]$OutputDirectoryPath='.'){
-  <# implementation snipped #>
-}
+####What parameters are available?
+
+#####NuspecFilePaths
+explicit paths to .nuspec files you want to pass to `nuget.exe pack`; default is all .nuspec files within your project root dir @ any depth
+```PowerShell
+[string[]][Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true)]$NuspecFilePaths
+```
+#####OutputDirectoryPath
+the output directory to pass to `chocolatey pack`
+```PowerShell
+[string][Parameter(ValueFromPipelineByPropertyName=$true)]$OutputDirectoryPath='.'
 ```
 
-**What's the build Status?**
+####What's the build status?
 ![](https://ci.appveyor.com/api/projects/status/1qk22qg7niqbgxhf?svg=true)
-
