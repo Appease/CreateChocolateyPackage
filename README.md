@@ -1,24 +1,31 @@
 ####What is it?
 
-A [Posh-CI](https://github.com/Posh-CI/Posh-CI) step that creates one or more [Chocolatey](https://chocolatey.org/) packages
+A [PoshCI](https://github.com/PoshCI/PoshCI) step that creates one or more [Chocolatey](https://chocolatey.org/) packages
 
 ####How do I install it?
 
 ```PowerShell
-Add-CIStep -Name "YOUR-CISTEP-NAME" -ModulePackageId "Posh-CI-CreateChocolateyPackage"
+Add-CIStep -Name "YOUR-CISTEP-NAME" -ModulePackageId "CreateChocolateyPackage"
 ```
 
 ####What parameters are available?
 
 #####NuspecFilePaths
-explicit paths to .nuspec files you want to pass to `nuget.exe pack`; default is all .nuspec files within your project root dir @ any depth
+A String[] representing explicit paths to .nuspec files you want to pass to `choco pack`
 ```PowerShell
-[string[]][Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true)]$NuspecFilePaths
+[String[]]
+[ValidateCount(1,[Int]::MaxValue)]
+[Parameter(
+    Mandatory=$true,
+    ValueFromPipelineByPropertyName=$true)]
+$NuspecFilePath
 ```
 #####OutputDirectoryPath
-the output directory to pass to `chocolatey pack`
-```PowerShell
-[string][Parameter(ValueFromPipelineByPropertyName=$true)]$OutputDirectoryPath='.'
+A String representing the output directory for `choco pack` output (i.e. .nupkg's)
+```PowerShell[String]
+[Parameter(
+    ValueFromPipelineByPropertyName=$true)]
+$OutputDirectoryPath
 ```
 
 ####What's the build status?
