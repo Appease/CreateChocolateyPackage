@@ -6,10 +6,10 @@
 		<authors>Chris Dostert</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>
-			A PoshCI step that creates one or more Chocolatey packages			
+			A PoshDevOps task that creates one or more Chocolatey packages			
 		</description>
-		<tags>Powershell PoshCI Chocolatey</tags>
-		<projectUrl>https://github.com/PoshCI/CreateChocolateyPackage</projectUrl>
+		<tags>Powershell PoshDevOps Chocolatey</tags>
+		<projectUrl>https://github.com/PoshDevOps/CreateChocolateyPackage</projectUrl>
         <dependencies />
 	</metadata>	
 	<files>

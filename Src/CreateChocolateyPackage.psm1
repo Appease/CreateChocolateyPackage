@@ -11,7 +11,7 @@ function EnsureChocolateyInstalled(){
     }   
 }
 
-function Invoke-CIStep(
+function Invoke-PoshDevOpsTask(
 
 [String[]]
 [ValidateCount(1,[Int]::MaxValue)]
@@ -56,4 +56,4 @@ $OutputDirectoryPath){
 
 }
 
-Export-ModuleMember -Function Invoke-CIStep
+Export-ModuleMember -Function Invoke-PoshDevOpsTask

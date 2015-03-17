@@ -1,11 +1,11 @@
 ####What is it?
 
-A [PoshCI](https://github.com/PoshCI/PoshCI) step that creates one or more [Chocolatey](https://chocolatey.org/) packages
+A [PoshDevOps](https://github.com/PoshDevOps/PoshDevOps) step that creates one or more [Chocolatey](https://chocolatey.org/) packages
 
 ####How do I install it?
 
 ```PowerShell
-Add-CIStep -Name "YOUR-CISTEP-NAME" -ModulePackageId "CreateChocolateyPackage"
+Add-PoshDevOpsTask -Name "YOUR-CISTEP-NAME" -ModulePackageId "CreateChocolateyPackage"
 ```
 
 ####What parameters are available?
