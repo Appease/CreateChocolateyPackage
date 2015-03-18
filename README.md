@@ -29,4 +29,4 @@ $OutputDirectoryPath
 ```
 
 ####What's the build status?
-![](https://ci.appveyor.com/api/projects/status/1qk22qg7niqbgxhf?svg=true)
+![](https://ci.appveyor.com/api/projects/status/w5g8u9ia977n5r8k?svg=true)
