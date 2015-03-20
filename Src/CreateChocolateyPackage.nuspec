@@ -6,7 +6,7 @@
 		<authors>Chris Dostert</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>
-			A PoshDevOps task that creates one or more Chocolatey packages			
+			A Poshtask that creates one or more Chocolatey packages			
 		</description>
 		<tags>Powershell PoshDevOps Chocolatey</tags>
 		<projectUrl>https://github.com/PoshDevOps/CreateChocolateyPackage</projectUrl>
