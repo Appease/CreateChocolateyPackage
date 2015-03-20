@@ -27,12 +27,12 @@ $PoshDevOpsProjectRootDirPath,
 [ValidateCount(1,[Int]::MaxValue)]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$IncludeNuspecFilePath = @(gci -Path $PoshDevOpsProjectRootDirPath -File -Filter '*.nuspec' -Recurse | %{$_.FullName}),
+$IncludeNuspecPath = @(gci -Path $PoshDevOpsProjectRootDirPath -File -Filter '*.nuspec' -Recurse | %{$_.FullName}),
 
 [String[]]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$ExcludeFileNameLike,
+$ExcludeNuspecNameLike,
 
 [Switch]
 [Parameter(
@@ -57,7 +57,7 @@ $PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'){
 
     EnsureChocolateyInstalled -PathToChocolateyExe $PathToChocolateyExe
 
-    $NuspecFilePaths = gci -Path $IncludeNuspecFilePath -Filter '*.nuspec' -File -Exclude $ExcludeFileNameLike -Recurse:$Recurse | ?{!$_.PSIsContainer} | %{$_.FullName}
+    $NuspecFilePaths = gci -Path $IncludeNuspecPath -Filter '*.nuspec' -File -Exclude $ExcludeNuspecNameLike -Recurse:$Recurse | ?{!$_.PSIsContainer} | %{$_.FullName}
 
 Write-Debug `
 @"

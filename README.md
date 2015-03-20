@@ -10,26 +10,26 @@ Add-PoshDevOpsTask -Name "YOUR-TASK-NAME" -ModulePackageId "CreateChocolateyPack
 
 ####What parameters are available?
 
-#####IncludeNuspecFilePath
+#####IncludeNuspecPath
 A String[] representing included .nuspec file paths. Either literal or wildcard paths are supported.
 ```PowerShell
 [String[]]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$IncludeNuspecFilePath
+$IncludeNuspecPath
 ```
 
-#####ExcludeFileNameLike
+#####ExcludeNuspecNameLike
 A String[] representing .nuspec file names to exclude. Either literal or wildcard names are supported.
 ```PowerShell
 [String[]]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$ExcludeFileNameLike
+$ExcludeNuspecNameLike
 ```
 
 #####Recurse
-A Switch representing whether to recursively search directories below $IncludeNuspecFilePath.
+A Switch representing whether to recursively search directories below $IncludeNuspecPath.
 ```PowerShell
 [Switch]
 [Parameter(
