@@ -1,10 +1,13 @@
 # halt immediately on any errors which occur in this module
 $ErrorActionPreference = "Stop"
 
-function EnsureChocolateyInstalled(){
+function EnsureChocolateyInstalled(
+[String]
+[ValidateNotNullOrEmpty()]
+$PathToChocolateyExe){
     # install chocolatey
     try{
-        Get-Command choco -ErrorAction Stop | Out-Null
+        Get-Command $PathToChocolateyExe -ErrorAction Stop | Out-Null
     }
     catch{             
         iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -13,40 +16,83 @@ function EnsureChocolateyInstalled(){
 
 function Invoke-PoshDevOpsTask(
 
-[String[]]
-[ValidateCount(1,[Int]::MaxValue)]
+[String]
+[ValidateNotNullOrEmpty()]
 [Parameter(
     Mandatory=$true,
     ValueFromPipelineByPropertyName=$true)]
-$NuspecFilePath,
+$PoshDevOpsProjectRootDirPath,
+
+[String[]]
+[ValidateCount(1,[Int]::MaxValue)]
+[Parameter(
+    ValueFromPipelineByPropertyName = $true)]
+$IncludeNuspecFilePath = @(gci -Path $PoshDevOpsProjectRootDirPath -File -Filter '*.nuspec' -Recurse | %{$_.FullName}),
+
+[String[]]
+[Parameter(
+    ValueFromPipelineByPropertyName = $true)]
+$ExcludeFileNameLike,
+
+[Switch]
+[Parameter(
+    ValueFromPipelineByPropertyName=$true)]
+$Recurse,
 
 [String]
 [Parameter(
     ValueFromPipelineByPropertyName=$true)]
-$OutputDirectoryPath){
+$OutputDirectoryPath,
 
-    EnsureChocolateyInstalled
-    
-    foreach($nuspecFilePathItem in $NuspecFilePath)
+[String]
+[Parameter(
+    ValueFromPipelineByPropertyName = $true)]
+$Version,
+
+[String]
+[ValidateNotNullOrEmpty()]
+[Parameter(
+    ValueFromPipelineByPropertyName=$true)]
+$PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'){
+
+    EnsureChocolateyInstalled -PathToChocolateyExe $PathToChocolateyExe
+
+    $NuspecFilePaths = gci -Path $IncludeNuspecFilePath -Filter '*.nuspec' -File -Exclude $ExcludeFileNameLike -Recurse:$Recurse | ?{!$_.PSIsContainer} | %{$_.FullName}
+
+Write-Debug `
+@"
+`Located .nuspec's:
+$($NuspecFilePaths | Out-String)
+"@
+
+    if($OutputDirectoryPath){
+        Push-Location ( Resolve-Path $OutputDirectoryPath)        
+    }
+    else{            
+        Push-Location (Get-Location)       
+    }
+
+Write-Debug  `
+@"
+output directory is:
+$OutputDirectoryPath
+"@
+
+    foreach($nuspecFilePath in $NuspecFilePaths)
     {
-        if($OutputDirectoryPath){
-
-            Write-Debug "`$OutputDirectoryPath is: $OutputDirectoryPath"
-            Push-Location ( Resolve-Path $OutputDirectoryPath)
+    
+        $chocolateyParameters = @('pack',$nuspecFilePath)
         
+        if($Version){
+            $chocolateyParameters += @('--version',$Version)
         }
-        else{
-            
-            Write-Debug "`$OutputDirectoryPath not set;"
-            Push-Location ( Resolve-Path . )
-        
-        }
-                
-        # invoke nuget pack
-        chocolatey pack (resolve-path $nuspecFilePathItem)
 
-        # revert location
-        Pop-Location
+Write-Debug `
+@"
+Invoking choco:
+& $PathToChocolateyExe $($chocolateyParameters|Out-String)
+"@
+        & $PathToChocolateyExe $chocolateyParameters
 
         # handle errors
         if ($LastExitCode -ne 0) {
@@ -54,6 +100,8 @@ $OutputDirectoryPath){
         }
     }
 
+    # revert location
+    Pop-Location
 }
 
-Export-ModuleMember -Function Invoke-PoshDevOpsTask
+Export-ModuleMember -Function Invoke-PoshDevOpsTask 
