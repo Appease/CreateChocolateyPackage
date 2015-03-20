@@ -84,7 +84,7 @@ $OutputDirectoryPath
         $chocolateyParameters = @('pack',$nuspecFilePath)
         
         if($Version){
-            $chocolateyParameters += @('--version',$Version)
+            $chocolateyParameters += @('-version',$Version)
         }
 
 Write-Debug `
