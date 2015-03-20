@@ -22,7 +22,8 @@ $NuspecFilePath
 ```
 #####OutputDirectoryPath
 A String representing the output directory for `choco pack` output (i.e. .nupkg's)
-```PowerShell[String]
+```PowerShell
+[String]
 [Parameter(
     ValueFromPipelineByPropertyName=$true)]
 $OutputDirectoryPath
