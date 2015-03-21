@@ -41,11 +41,6 @@ $Recurse,
 
 [String]
 [Parameter(
-    ValueFromPipelineByPropertyName=$true)]
-$OutputDirectoryPath,
-
-[String]
-[Parameter(
     ValueFromPipelineByPropertyName = $true)]
 $Version,
 
@@ -63,19 +58,6 @@ Write-Debug `
 @"
 `Located .nuspec's:
 $($NuspecFilePaths | Out-String)
-"@
-
-    if($OutputDirectoryPath){
-        Push-Location ( Resolve-Path $OutputDirectoryPath)        
-    }
-    else{            
-        Push-Location (Get-Location)       
-    }
-
-Write-Debug  `
-@"
-output directory is:
-$OutputDirectoryPath
 "@
 
     foreach($nuspecFilePath in $NuspecFilePaths)
@@ -99,9 +81,6 @@ Invoking choco:
             throw $Error
         }
     }
-
-    # revert location
-    Pop-Location
 }
 
 Export-ModuleMember -Function Invoke-PoshDevOpsTask 
