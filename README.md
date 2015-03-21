@@ -37,14 +37,6 @@ A Switch representing whether to recursively search directories below $IncludeNu
 $Recurse
 ```
 
-#####OutputDirectoryPath
-A String representing the path to the directory resulting .nupkg files should be place in.
-```PowerShell
-[String]
-[Parameter(
-    ValueFromPipelineByPropertyName = $true)]
-$OutputDirectoryPath
-```
 #####Version
 A String representing the version of the package. Default is value from .nuspec file. 
 ```PowerShell
