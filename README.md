@@ -62,6 +62,7 @@ A String representing the path to Chocolatey.exe . If not found, latest version 
 [Parameter(
     ValueFromPipelineByPropertyName=$true)]
 $PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'
+```
 
 ####What's the build status?
 ![](https://ci.appveyor.com/api/projects/status/w5g8u9ia977n5r8k?svg=true)
