@@ -60,26 +60,34 @@ Write-Debug `
 $($NuspecFilePaths | Out-String)
 "@
 
-    foreach($nuspecFilePath in $NuspecFilePaths)
-    {
-    
-        $chocolateyParameters = @('pack',$nuspecFilePath)
+    $initialLocation = Get-Location
+
+    Try{
+        foreach($nuspecFilePath in $NuspecFilePaths)
+        {
+            Set-Location (Split-Path $nuspecFilePath -Parent)
+
+            $chocolateyParameters = @('pack',$nuspecFilePath)
         
-        if($Version){
-            $chocolateyParameters += @('-version',$Version)
-        }
+            if($Version){
+                $chocolateyParameters += @('-version',$Version)
+            }
 
 Write-Debug `
 @"
 Invoking choco:
 & $PathToChocolateyExe $($chocolateyParameters|Out-String)
 "@
-        & $PathToChocolateyExe $chocolateyParameters
+            & $PathToChocolateyExe $chocolateyParameters
 
-        # handle errors
-        if ($LastExitCode -ne 0) {
-            throw $Error
+            # handle errors
+            if ($LastExitCode -ne 0) {
+                throw $Error
+            }
         }
+    }
+    Finally{
+        Set-Location $initialLocation
     }
 }
 
