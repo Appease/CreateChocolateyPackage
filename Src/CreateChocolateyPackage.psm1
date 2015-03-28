@@ -1,20 +1,7 @@
 # halt immediately on any errors which occur in this module
 $ErrorActionPreference = "Stop"
 
-function EnsureChocolateyInstalled(
-[String]
-[ValidateNotNullOrEmpty()]
-$PathToChocolateyExe){
-    # install chocolatey
-    try{
-        Get-Command $PathToChocolateyExe -ErrorAction Stop | Out-Null
-    }
-    catch{             
-        iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-    }   
-}
-
-function Invoke-PoshDevOpsTask(
+function Invoke(
 
 [String]
 [ValidateNotNullOrEmpty()]
@@ -50,8 +37,6 @@ $Version,
     ValueFromPipelineByPropertyName=$true)]
 $PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'){
 
-    EnsureChocolateyInstalled -PathToChocolateyExe $PathToChocolateyExe
-
     $NuspecFilePaths = gci -Path $IncludeNuspecPath -Filter '*.nuspec' -File -Exclude $ExcludeNuspecNameLike -Recurse:$Recurse | ?{!$_.PSIsContainer} | %{$_.FullName}
 
 Write-Debug `
@@ -70,7 +55,7 @@ $($NuspecFilePaths | Out-String)
             $chocolateyParameters = @('pack',$nuspecFilePath)
         
             if($Version){
-                $chocolateyParameters += @('-version',$Version)
+                $chocolateyParameters += @('--version',$Version)
             }
 
 Write-Debug `
@@ -91,4 +76,4 @@ Invoking choco:
     }
 }
 
-Export-ModuleMember -Function Invoke-PoshDevOpsTask 
+Export-ModuleMember -Function Invoke
