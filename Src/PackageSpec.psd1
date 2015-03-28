@@ -12,5 +12,5 @@
             Version = '0.9.9'
         }
     };
-    Files=@(@{Include=@('.\*');Exclude=@('*.nuspec');Recurse=$true})
+    Files=@(@{Path=@('.\*');Exclude=@('*.nuspec');Recurse=$true})
 }
