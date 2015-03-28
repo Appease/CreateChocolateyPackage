@@ -47,7 +47,7 @@ $Version
 ```
 
 #####PathToChocolateyExe
-A String representing the path to Chocolatey.exe . If not found, latest version will be installed. 
+A String representing the path to Chocolatey.exe v0.9.9 or greater. If not found, latest version will be installed. 
 ```PowerShell
 [String]
 [ValidateNotNullOrEmpty()]
