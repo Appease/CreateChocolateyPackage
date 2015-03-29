@@ -8,7 +8,7 @@
     License = @{SpdxId='Apache-2.0'};
     Dependencies = @{
         Chocolatey = @{
-            Name = 'Chocolatey';
+            Id = 'Chocolatey';
             Version = '0.9.9'
         }
     };
