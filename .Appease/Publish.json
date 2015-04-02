@@ -3,13 +3,21 @@
     "Tasks":  [
                   {
                       "TemplateId":  "PublishAppeaseTaskTemplate",
-                      "Name":  "Publish To Official appease feed",
+                      "Name":  "Publish to official Appease feed",
                       "TemplateVersion":  "0.0.12",
                       "Parameters":  {
-                                         "IconUrl":  "http://res.cloudinary.com/hibczhd9m/image/upload/c_crop,w_350/v1423785217/NuGet.org/5711875.png",
-                                         "Id":  "CreateChocolateyPackage",
-                                         "Description":  "Creates one or more Chocolatey packages",
                                          "ProjectUrl":  "https://github.com/Appease/CreateChocolateyPackage",
+                                         "Id":  "CreateChocolateyPackage",
+                                         "IconUrl":  "http://res.cloudinary.com/hibczhd9m/image/upload/c_crop,w_350/v1423785217/NuGet.org/5711875.png",
+                                         "Description":  "Creates one or more Chocolatey packages",
+                                         "Dependencies":  {
+                                                              "Chocolatey":  [
+                                                                                 {
+                                                                                     "Id":  "Chocolatey",
+                                                                                     "Version":  "0.9.9.4"
+                                                                                 }
+                                                                             ]
+                                                          },
                                          "Contributor":  {
                                                              "Name":  "Chris Dostert"
                                                          },
