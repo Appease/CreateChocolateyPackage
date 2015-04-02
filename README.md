@@ -19,7 +19,7 @@ None
 ####What parameters are optional?
 
 #####IncludeNuspecPath
-description: a `string[]` representing included .nuspec file paths. Either literal or wildcard paths are supported.
+description: a `string[]` representing included .nuspec file paths. Either literal or wildcard paths are supported.  
 default: all .nuspec files at any depth starting at the root dir of the project 
 
 #####ExcludeNuspecNameLike
