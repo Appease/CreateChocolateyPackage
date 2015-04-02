@@ -1,60 +1,33 @@
+![](https://ci.appveyor.com/api/projects/status/w5g8u9ia977n5r8k?svg=true)
+
 ####What is it?
 
-A [PoshDevOps](https://github.com/PoshDevOps/PoshDevOps) task that creates one or more [Chocolatey](https://chocolatey.org/) packages
+An [Appease](https://github.com/Appease/Appease) task template that creates one or more [Chocolatey](https://chocolatey.org/) packages
 
 ####How do I install it?
 
 ```PowerShell
-Add-PoshDevOpsTask -Name "YOUR-TASK-NAME" -ModulePackageId "CreateChocolateyPackage"
+Add-AppeaseTask `
+    -DevOpName YOUR-DEVOP-NAME `
+    -Name YOUR-TASK-NAME `
+    -TemplateId CreateChocolateyPackage
 ```
 
-####What parameters are available?
+####What parameters are required?
+None
+
+####What parameters are optional?
 
 #####IncludeNuspecPath
-A String[] representing included .nuspec file paths. Either literal or wildcard paths are supported.
-```PowerShell
-[String[]]
-[Parameter(
-    ValueFromPipelineByPropertyName = $true)]
-$IncludeNuspecPath
-```
+description: a `string[]` representing included .nuspec file paths. Either literal or wildcard paths are supported.
+default: all .nuspec files at any depth starting at the root dir of the project 
 
 #####ExcludeNuspecNameLike
-A String[] representing .nuspec file names to exclude. Either literal or wildcard names are supported.
-```PowerShell
-[String[]]
-[Parameter(
-    ValueFromPipelineByPropertyName = $true)]
-$ExcludeNuspecNameLike
-```
+description: a `string[]` representing .nuspec file names to exclude. Either literal or wildcard names are supported.
 
 #####Recurse
-A Switch representing whether to recursively search directories below $IncludeNuspecPath.
-```PowerShell
-[Switch]
-[Parameter(
-    ValueFromPipelineByPropertyName = $true)]
-$Recurse
-```
+description: a `Switch` representing whether to recursively search directories below $IncludeNuspecPath.
 
 #####Version
-A String representing the version of the package. Default is value from .nuspec file. 
-```PowerShell
-[String]
-[Parameter(
-    ValueFromPipelineByPropertyName = $true)]
-$Version
-```
+description: a `string` representing the version of the package. Default is value from .nuspec file.
 
-#####PathToChocolateyExe
-A String representing the path to Chocolatey.exe v0.9.9 or greater. If not found, latest version will be installed. 
-```PowerShell
-[String]
-[ValidateNotNullOrEmpty()]
-[Parameter(
-    ValueFromPipelineByPropertyName=$true)]
-$PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'
-```
-
-####What's the build status?
-![](https://ci.appveyor.com/api/projects/status/w5g8u9ia977n5r8k?svg=true)

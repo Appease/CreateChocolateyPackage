@@ -8,13 +8,13 @@ function Invoke(
 [Parameter(
     Mandatory=$true,
     ValueFromPipelineByPropertyName=$true)]
-$PoshDevOpsProjectRootDirPath,
+$AppeaseProjectRootDirPath,
 
 [String[]]
 [ValidateCount(1,[Int]::MaxValue)]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$IncludeNuspecPath = @(gci -Path $PoshDevOpsProjectRootDirPath -File -Filter '*.nuspec' -Recurse | %{$_.FullName}),
+$IncludeNuspecPath = @(gci -Path $AppeaseProjectRootDirPath -File -Filter '*.nuspec' -Recurse | %{$_.FullName}),
 
 [String[]]
 [Parameter(
@@ -29,13 +29,7 @@ $Recurse,
 [String]
 [Parameter(
     ValueFromPipelineByPropertyName = $true)]
-$Version,
-
-[String]
-[ValidateNotNullOrEmpty()]
-[Parameter(
-    ValueFromPipelineByPropertyName=$true)]
-$PathToChocolateyExe = 'C:\ProgramData\chocolatey\bin\chocolatey.exe'){
+$Version){
 
     $NuspecFilePaths = gci -Path $IncludeNuspecPath -Filter '*.nuspec' -File -Exclude $ExcludeNuspecNameLike -Recurse:$Recurse | ?{!$_.PSIsContainer} | %{$_.FullName}
 
@@ -46,24 +40,24 @@ $($NuspecFilePaths | Out-String)
 "@
 
     $initialLocation = Get-Location
-
+    $ChocolateyCommand = 'chocolatey'
     Try{
         foreach($nuspecFilePath in $NuspecFilePaths)
         {
             Set-Location (Split-Path $nuspecFilePath -Parent)
 
-            $chocolateyParameters = @('pack',$nuspecFilePath)
+            $ChocolateyParameters = @('pack',$nuspecFilePath)
         
             if($Version){
-                $chocolateyParameters += @('--version',$Version)
+                $ChocolateyParameters += @('--version',$Version)
             }
 
 Write-Debug `
 @"
 Invoking choco:
-& $PathToChocolateyExe $($chocolateyParameters|Out-String)
+& $ChocolateyCommand $($ChocolateyParameters|Out-String)
 "@
-            & $PathToChocolateyExe $chocolateyParameters
+            & $ChocolateyCommand $ChocolateyParameters
 
             # handle errors
             if ($LastExitCode -ne 0) {
